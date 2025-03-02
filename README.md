@@ -31,7 +31,7 @@ command-line-parser/
 |   |
 │   ├── parser/
 │   │   ├── CommandLineParser.java
-│   │   ├── InputMapper.java
+│   │   ├── InputArgumentMapper.java
 │   │   └── ObjectFieldMapper.java
 |   |
 └── README.md
