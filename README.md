@@ -89,3 +89,21 @@ public class Main {
 }
 
 ```
+
+### Running the application
+
+1. Clone the repository.
+```bash
+git clone https://github.com/surfaceUsed/command-line-parser.git
+```
+
+2. Navigate to the project dkirectory.
+```bash
+cd path/to/command-line-parser
+```
+
+3. Package into a JAR file.
+```bash
+jar cf command-line-parser.jar -C out . 
+```
+
