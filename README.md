@@ -92,6 +92,12 @@ public class Main {
 
 ### Running the application
 
+**Requirements**
+- Java 17, or later.
+- [Maven](https://maven.apache.org/download.cgi).
+
+**Installation**
+
 1. Clone the repository.
 ```bash
 git clone https://github.com/surfaceUsed/command-line-parser.git
@@ -102,8 +108,14 @@ git clone https://github.com/surfaceUsed/command-line-parser.git
 cd path/to/command-line-parser
 ```
 
-3. Package into a JAR file.
+3. Clean, compile and package the project.
 ```bash
-jar cf command-line-parser.jar -C out . 
+maven clean
+maven compile
+maven package
 ```
+
+The complete `.jar` file will be located in the `target/` directory.
+
+---
 
