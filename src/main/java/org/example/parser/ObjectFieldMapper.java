@@ -1,7 +1,9 @@
-package parser;
+package org.example.parser;
 
-import annotations.Parameter;
-import error.DuplicateParameterKeyException;
+
+import org.example.annotations.Parameter;
+import org.example.error.DuplicateParameterKeyException;
+
 import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.Map;

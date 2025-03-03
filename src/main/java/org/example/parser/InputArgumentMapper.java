@@ -1,6 +1,7 @@
-package parser;
+package org.example.parser;
 
-import error.DuplicateParameterKeyException;
+import org.example.error.DuplicateParameterKeyException;
+
 import java.util.HashMap;
 import java.util.Map;
 
