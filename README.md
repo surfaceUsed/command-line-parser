@@ -110,9 +110,9 @@ cd path/to/command-line-parser
 
 3. Clean, compile and package the project.
 ```bash
-maven clean
-maven compile
-maven package
+mvn clean
+mvn compile
+mvn package
 ```
 
 The complete `.jar` file will be located in the `target/` directory.
