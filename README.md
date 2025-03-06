@@ -13,7 +13,8 @@ them with command-line inputs.
 - Parses input from command-line.
 - Uses annotations to map the input to object fields.
 - Handles duplicate parameter keys in both input and object fields. 
-- automatically sets field values using reflection.
+- Automatically sets field values using reflection.
+- Supports all Java primitive data types (int, double, boolean, etc.), and their wrapper classes.
 
 ---
 
@@ -22,18 +23,24 @@ them with command-line inputs.
 ```plaintext
 command-line-parser/
 │── src/
-|   |
+│   │
 │   ├── annotations/
-│   │   └── Parameter.java 
-|   |   
+│   │   └── Parameter.java
+│   │
+│   ├── enums/
+│   │   └── DataTypes.java
+│   │
 │   ├── error/
-│   │   └── DuplicateParameterKeyException.java
-|   |
+│   │   ├── ArgumentDataTypeException.java
+│   │   ├── DuplicateParameterKeyException.java
+│   │   └── ObjectFieldDataTypeException.java
+│   │
 │   ├── parser/
-│   │   ├── CommandLineParser.java
-│   │   ├── InputArgumentMapper.java
-│   │   └── ObjectFieldMapper.java
-|   |
+│       ├── CommandLineParser.java
+│       ├── DataTypeValidator.java
+│       ├── InputArgumentMapper.java
+│       └── ObjectFieldMapper.java   
+│
 └── README.md
 ```
 ---
@@ -43,7 +50,9 @@ command-line-parser/
 **Define a class with annotated fields:**
 Create a class with fields annotated with `@Parameter` and specify the corresponding command-line argument key.
 
-*Note* -> If there are duplicated parameter key-names, a `DuplicatedParameterKetException` will be thrown.
+**Notes:** 
+- If duplicate parameter keys exist, an unchecked `DuplicateParameterKeyException` is thrown.
+- If a field's data type is not a Java primitive or its wrapper class, an unchecked `ObjectFieldDataTypeException` is thrown.
 
 ```Java
 import annotations.Parameter;
@@ -56,9 +65,12 @@ public class Person {
     @Parameter(key = "-l")
     private String lastName;
 
+    @Parameter(key = "-a")
+    private int age;
+
     @Override
     public String toString() {
-        return this.firstName + " " + this.lastName;
+        return this.firstName + " " + this.lastName + ", age: " + this.age;
     }
 }
 ```
@@ -66,12 +78,15 @@ public class Person {
 **Parse command-line arguments:**
 Use `CommandLineParser.runParser()` to populate the fields of an object based on command-line inputs. 
 
-*Note* -> 1. If an argument value contains spaces, you must enclose it in double quotes (`""`) when passing it in the command-line.
-          2. If there are duplicated parameter key-names, a `DuplicatedParameterKetException` will be thrown.
+**Notes:**
+- If an argument value contains spaces, special characters, or could be misinterpreted (e.g., negative numbers), enclose it in 
+double quotes (`""`) when passing it in the command-line.
+- If duplicate argument keys exist, an unchecked `DuplicateParameterKeyException` is thrown.
+- If a provided value cannot be converted to the expected primitive type, an unchecked `ArgumentDataTypeException` is thrown.
 
 *Example comman-line arguments:*
 ```bash
--f George -l Orwell
+-f George -l Orwell -a 80
 ```
 
 ```Java
@@ -84,7 +99,7 @@ public class Main {
         Person person = new Person();
         CommandLineParser.runParser(person, args);
 
-        System.out.println(person); // Output: George Orwell
+        System.out.println(person); // Output: George Orwell, age: 80
     }
 }
 
@@ -94,7 +109,7 @@ public class Main {
 
 **Requirements**
 - Java 17, or later.
-- [Maven](https://maven.apache.org/download.cgi).
+- [Apache Maven](https://maven.apache.org/download.cgi).
 
 **Installation**
 
