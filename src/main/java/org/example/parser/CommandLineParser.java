@@ -28,15 +28,17 @@ public class CommandLineParser {
      * Parses the given command-line arguments and maps them to the fields of the provided object.
      *
      * This method takes an object with annotated fields, and an array of command-line arguments. It processes each
-     * parameter using two helper classes:
+     * parameter using three helper classes:
      *
      *    1. 'InputArgumentMapper' -> Parses the command-line arguments and stores them as key-value pairs.
      *    2. 'ObjectFieldMapper' -> Scans the objects fields for the @Parameter annotation and maps them to their
      *        corresponding parameter key.
+     *    3. 'DataTypeValidator' -> Converts the extracted values to match the data type of the corresponding object
+     *        fields.
      *
      * After processing, it iterates through the mapped fields of the object, checking if a matching key exists in the
-     * parsed input. If a match is found, the corresponding value is assigned to the objects field using Java
-     * Reflection.
+     * parsed input. If a match is found, the corresponding value is converted to the appropriate data type and
+     * assigned to the object's field using Java Reflection.
      *
      * @param object The object whose fields should be populated with command-line arguments,
      * @param args The command-line arguments in key-value pairs.
@@ -51,8 +53,9 @@ public class CommandLineParser {
             String key = keyValues.getKey();
             String inputValue = inputMapper.getInputMap().getOrDefault(key, "");
             if (!inputValue.isEmpty()) {
-                Field updateField = keyValues.getValue();
-                updateField.set(object, inputValue);
+                Field fieldToSet = keyValues.getValue();
+                Object data = DataTypeValidator.parseFieldDataType(inputValue, fieldToSet);
+                fieldToSet.set(object, data);
             }
         }
     }
