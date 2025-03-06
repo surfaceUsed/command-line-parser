@@ -2,9 +2,9 @@
 
 ### Overview
 
-I was trying to learn how to use reflection, so i created my own simple Java library for parsing command-line arguments, which 
-automatically maps them to object fields using annotations. It allows users to define parameters in their classes and popluale 
-them with command-line inputs.
+ created this Java library as a learning project to explore reflection. It provides a simple way to parse command-line arguments and 
+ automatically map them to object fields using annotations. By defining parameters in a class, users can easily populate them with 
+ command-line inputs, making argument handling more intuitive and efficient.
 
 --- 
 
