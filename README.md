@@ -2,7 +2,7 @@
 
 ### Overview
 
- created this Java library as a learning project to explore reflection. It provides a simple way to parse command-line arguments and 
+ I created this Java library as a learning project to explore reflection. It provides a simple way to parse command-line arguments and 
  automatically map them to object fields using annotations. By defining parameters in a class, users can easily populate them with 
  command-line inputs, making argument handling more intuitive and efficient.
 
