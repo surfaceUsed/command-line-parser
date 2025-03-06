@@ -35,7 +35,7 @@ command-line-parser/
 │   │   ├── DuplicateParameterKeyException.java
 │   │   └── ObjectFieldDataTypeException.java
 │   │
-│   ├── parser/
+│   └── parser/
 │       ├── CommandLineParser.java
 │       ├── DataTypeValidator.java
 │       ├── InputArgumentMapper.java
